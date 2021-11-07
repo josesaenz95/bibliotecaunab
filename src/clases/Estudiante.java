@@ -5,16 +5,19 @@
  */
 package clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joseto
  */
-public class Estudiante extends Usuario {
-    
+public class Estudiante extends Usuario implements Serializable{
+
     private String carrera;
     
-    public Estudiante(String nombre, String rut, char genero){
+    public Estudiante(String nombre, String rut, char genero, String carrera){
         super(nombre, rut, genero);
+        this.carrera = carrera;
     }
 
     public String getCarrera() {

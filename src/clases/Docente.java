@@ -12,9 +12,12 @@ package clases;
 public class Docente extends Usuario {
     
     private String profesion;
+    private String grado;
     
-    public Docente(String nombre, String rut, char genero){
+    public Docente(String nombre, String rut, char genero, String profesion, String grado){
         super(nombre, rut, genero);
+        this.profesion = profesion;
+        this.grado = grado;
     }
 
     public String getProfesion() {
@@ -25,9 +28,17 @@ public class Docente extends Usuario {
         this.profesion = profesion;
     }
 
+    public String getGrado() {
+        return grado;
+    }
+
+    public void setGrado(String grado) {
+        this.grado = grado;
+    }
+
     @Override
     public String toString() {
-        return "Docente{" + super.toString() + "profesion=" + profesion + '}';
+        return "Docente{" + super.toString() + " profesion=" + profesion + ", grado=" + grado + '}';
     }
     
     
