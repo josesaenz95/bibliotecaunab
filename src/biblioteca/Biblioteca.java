@@ -95,74 +95,46 @@ public class Biblioteca {
         return ds.eliminarUsuario(rut);
     }
     
-    public static boolean menu(){
-        boolean continuar = true;
-        String respuesta;
-        System.out.println("       MENU       ");
-        System.out.println("1. Ingresar Docente:");
-        System.out.println("2. Eliminar Docente:");
-        System.out.println("3. Ingresar Estudiante:");
-        System.out.println("4. Eliminar Estudiante:");
-        System.out.println("5. Ingresar Libro:");
-        System.out.println("6. Eliminar Libro:");
-        System.out.print("> ");
-        respuesta = sc.nextLine();
-        switch(respuesta){
-            case "1": 
-                if(ingresarDocente()){
-                    System.out.println("Docente ingresado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al ingresar al docente");
-                }
-                break;
-            case "2": 
-                if(eliminarDocente()){
-                    System.out.println("Docente eliminado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al eliminar al docente");
-                }
-                break;
-            case "3":
-                if(ingresarEstudiante()){
-                    System.out.println("Estudiante ingresado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al ingresar al Estudiante");
-                }
-                break;
-            case "4": 
-                if(eliminarEstudiante()){
-                    System.out.println("Estudiante eliminado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al eliminado al Estudiante");
-                }
-                break;
-            case "5": 
-                if(ingresarLibro()){
-                    System.out.println("Libro ingresado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al ingresar el Libro");
-                }
-                break;
-            case "6": 
-                if(eliminarLibro()){
-                    System.out.println("Libro eliminado exitosamente");
-                }else{
-                    System.out.println("Hubo un error al eliminar el Libro");
-                }
-                break;
-            case "0":
-                continuar = false;
-                break;
-            default: System.out.println("Ingrese opción válida");
-        }  
-        return continuar;
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-          while(menu());
+        // TODO: Menu
+        if(ingresarDocente()){
+                System.out.println("Docente ingresado exitosamente");
+        }else{
+            System.out.println("Hubo un error al ingresar al docente");
+        }
+
+//        if(eliminarDocente()){
+//            System.out.println("Docente eliminado exitosamente");
+//        }else{
+//            System.out.println("Hubo un error al eliminar al docente");
+//        }
+
+        if(ingresarEstudiante()){
+            System.out.println("Estudiante ingresado exitosamente");
+        }else{
+            System.out.println("Hubo un error al ingresar al Estudiante");
+        }
+
+//        if(eliminarEstudiante()){
+//            System.out.println("Estudiante eliminado exitosamente");
+//        }else{
+//            System.out.println("Hubo un error al eliminado al Estudiante");
+//        }
+
+        if(ingresarLibro()){
+            System.out.println("Libro ingresado exitosamente");
+        }else{
+            System.out.println("Hubo un error al ingresar el Libro");
+        }
+
+//        if(eliminarLibro()){
+//            System.out.println("Libro eliminado exitosamente");
+//        }else{
+//            System.out.println("Hubo un error al eliminar el Libro");
+//        }
     }
     
 }
