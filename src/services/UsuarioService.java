@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package services;
 
-import clases.Libro;
+import clases.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Joseto
  */
-public interface ILibro {
-
-    public boolean ingresarLibro(Libro libro);
-    public boolean eliminarLibro(String isbn);
-    public boolean isbnExiste(String isbn);
-    
+public class UsuarioService {
+    public static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 }

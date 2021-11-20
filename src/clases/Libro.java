@@ -20,7 +20,14 @@ public class Libro implements Serializable {
     private int cantidadDisponible;
     private String imagen;
     
-    public Libro(){}
+    public Libro(String isbn, String titulo, String autor, int cantidadBiblioteca, String imagen){
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.cantidadBiblioteca = cantidadBiblioteca;
+        this.cantidadDisponible = this.cantidadBiblioteca;
+        this.imagen = imagen;
+    }
 
     public String getIsbn() {
         return isbn;

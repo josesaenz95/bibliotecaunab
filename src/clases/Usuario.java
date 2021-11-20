@@ -16,11 +16,13 @@ public class Usuario implements Serializable {
     private String nombre;
     private String rut;
     private char genero;
+    private String prestamo;
     
     public Usuario(String nombre, String rut, char genero){
         this.nombre = nombre;
         this.rut = rut;
         this.genero = genero;
+        this.prestamo = "0";
     }
 
     public String getNombre() {
@@ -47,9 +49,17 @@ public class Usuario implements Serializable {
         this.genero = genero;
     }
 
+    public String getPrestamo() {
+        return prestamo;
+    }
+
+    public void setPrestamo(String prestamo) {
+        this.prestamo = prestamo;
+    }    
+
     @Override
     public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", rut=" + rut + ", genero=" + genero + '}';
+        return "Usuario{" + "nombre=" + nombre + ", rut=" + rut + ", genero=" + genero + ", prestamo=" + prestamo + '}';
     }
     
     

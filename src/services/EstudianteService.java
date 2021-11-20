@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
@@ -28,19 +29,20 @@ public class EstudianteService implements IEstudiante, Serializable {
 
     @Override
     public void agregarCarrera(Estudiante estudiante, String carrera) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        estudiante.setCarrera(carrera);
     }
 
     @Override
-    public boolean crearUsuario(Usuario usuario) {
+    public boolean ingresarUsuario(Usuario usuario) {
         boolean creado = false;
         if(!rutExiste(usuario.getRut())){
             try {
-                String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios\\" + usuario.getRut() + ".dat");
+                UsuarioService.listaUsuarios.add(usuario);
+                String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
                 File file = new File(path);
+                file.delete();
                 ObjectOutputStream fobj = new ObjectOutputStream(new FileOutputStream(file));
-                fobj.writeObject(usuario);
-                fobj.flush();
+                fobj.writeObject(UsuarioService.listaUsuarios);
                 fobj.close();
                 creado = true;
             } catch (NotSerializableException ex) {
@@ -48,6 +50,8 @@ public class EstudianteService implements IEstudiante, Serializable {
             } catch (IOException ex) {
                 System.out.println(ex.toString());
             }
+        }else{
+            System.out.println("El rut " + usuario.getRut() + " ya existe en el sistema ");
         }
         
         return creado;
@@ -56,21 +60,54 @@ public class EstudianteService implements IEstudiante, Serializable {
     @Override
     public boolean eliminarUsuario(String rut) {
         boolean eliminado = false;
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios\\" + rut + ".dat");
-        File file = new File(path);
-        if(file.exists()){
-            file.delete();
-            eliminado = true;
+        for(int i=0; i < UsuarioService.listaUsuarios.size(); ++i){
+            Usuario usuario = UsuarioService.listaUsuarios.get(i);
+            if(usuario.getRut().equals(rut)){
+                UsuarioService.listaUsuarios.remove(i);
+                eliminado = true;
+            }
         }
-        
+        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
+        File file = new File(path);
+        file.delete();
+        try {
+            ObjectOutputStream fobj = new ObjectOutputStream(new FileOutputStream(file));
+            fobj.writeObject(UsuarioService.listaUsuarios);
+            fobj.close();
+        } catch (NotSerializableException ex) {
+            System.out.println(ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
         return eliminado;
     }
     
     @Override
     public boolean rutExiste(String rut) {
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios\\" + rut + ".dat");
-        File file = new File(path);
-        return file.exists();
+        boolean existe = false;
+        try{
+            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream obje = new ObjectInputStream(fis);
+            List<Usuario> estudiantes = (List<Usuario>) obje.readObject();
+            obje.close();
+            
+            for(Usuario estudiante : estudiantes) {
+                if(estudiante.getRut().equals(rut)){
+                    existe = true;
+                }
+            }
+        }catch (FileNotFoundException e) {
+            System.out.println("¡ERROR 1!:¡Fichero no existe!");
+        }catch (IOException e) {
+            System.out.println("¡ERROR 2!:"+e.getMessage());
+        }catch (ClassNotFoundException e) {
+            System.out.println("¡ERROR 3!:"+e.getMessage());
+        }catch (NullPointerException e) {
+            System.out.println("¡ERROR 4!:"+e.getMessage());
+        }
+        
+        return existe;
     }
 
     public static void mostrar(String rut) throws FileNotFoundException, IOException, ClassNotFoundException {

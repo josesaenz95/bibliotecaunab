@@ -3,16 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/IDocente.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/IUsuario.java</file>
-            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Estudiante.java</file>
-            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Docente.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/ILibro.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/biblioteca/Biblioteca.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/services/EstudianteService.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Usuario.java</file>
-            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/services/DocenteService.java</file>
-            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/IEstudiante.java</file>
             <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/services/LibroService.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Estudiante.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Docente.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/IDevolucion.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/services/DocenteService.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Prestamo.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/clases/Libro.java</file>
+            <file>file:/C:/Users/Joseto/Documents/Unab/Trimestre3/PA/Biblioteca/src/interfaces/IEstudiante.java</file>
         </group>
     </open-files>
 </project-private>

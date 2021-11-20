@@ -27,55 +27,82 @@ import java.util.List;
 public class LibroService implements ILibro {
 
     @Override
-    public boolean crearLibro(Libro libro) {
+    public boolean ingresarLibro(Libro libro) {
         boolean creado = false;
         if(!isbnExiste(libro.getIsbn())){
             try {
-                String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros\\" + libro.getIsbn() + ".dat");
+                LibroService.listaLibros.add(libro);
+                String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
                 File file = new File(path);
+                file.delete();
                 ObjectOutputStream fobj = new ObjectOutputStream(new FileOutputStream(file));
-                fobj.writeObject(libro);
-                fobj.flush();
+                fobj.writeObject(LibroService.listaLibros);
                 fobj.close();
                 creado = true;
             } catch (NotSerializableException ex) {
                 System.out.println(ex.toString());
-                creado = false;
             } catch (IOException ex) {
                 System.out.println(ex.toString());
-                creado = false;
             }
+        }else{
+            System.out.println("El ISBN " + libro.getIsbn()+ " ya existe en el sistema ");
         }
-        
         return creado;
     }
 
     @Override
     public boolean eliminarLibro(String isbn) {
         boolean eliminado = false;
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros\\" + isbn + ".dat");
-        File file = new File(path);
-        if(file.exists()){
-            file.delete();
-            eliminado = true;
+        for(int i=0; i < LibroService.listaLibros.size(); ++i){
+            Libro libro = LibroService.listaLibros.get(i);
+            if(libro.getIsbn().equals(isbn)){
+                LibroService.listaLibros.remove(i);
+                eliminado = true;
+            }
         }
-        
+        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
+        File file = new File(path);
+        file.delete();
+        try {
+            ObjectOutputStream fobj = new ObjectOutputStream(new FileOutputStream(file));
+            fobj.writeObject(LibroService.listaLibros);
+            fobj.close();
+        } catch (NotSerializableException ex) {
+            System.out.println(ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
         return eliminado;
-    }
-    
-    public static void mostrar(String isbn) throws FileNotFoundException, IOException, ClassNotFoundException, EOFException {
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros\\" + isbn + ".dat");
-        ObjectInputStream obje = new ObjectInputStream(new FileInputStream(path));
-        Libro libro = (Libro) obje.readObject();
-        System.out.println(libro);
-        obje.close();
     }
     
     @Override
     public boolean isbnExiste(String isbn) {
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros\\" + isbn + ".dat");
-        File file = new File(path);
-        return file.exists();
+        boolean existe = false;
+        try{
+            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream obje = new ObjectInputStream(fis);
+            List<Libro> libros = (List<Libro>) obje.readObject();
+            obje.close();
+            
+            for(Libro libro : libros) {
+                if(libro.getIsbn().equals(isbn)){
+                    existe = true;
+                }
+            }
+        }catch (FileNotFoundException e) {
+            System.out.println("¡ERROR 1!:¡Fichero no existe!");
+        }catch (IOException e) {
+            System.out.println("¡ERROR 2!:"+e.getMessage());
+        }catch (ClassNotFoundException e) {
+            System.out.println("¡ERROR 3!:"+e.getMessage());
+        }catch (NullPointerException e) {
+            System.out.println("¡ERROR 4!:"+e.getMessage());
+        }
+        
+        return existe;
     }
+    
+    public static List<Libro> listaLibros = new ArrayList<Libro>();
     
 }

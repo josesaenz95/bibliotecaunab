@@ -13,12 +13,19 @@ import java.util.Date;
  */
 public class Prestamo {
     
+    private int id;
     private Libro libro;
     private Usuario usuario;
     private int cantidadDias;
     private Date fechaDevolucion;
     
-   public Prestamo(){}
+   public Prestamo(int id, Libro libro, Usuario usuario, int cantidadDias, Date fechaDevolucion){
+       this.id = id;
+       this.libro = libro;
+       this.usuario = usuario;
+       this.cantidadDias = cantidadDias;
+       this.fechaDevolucion = fechaDevolucion;
+   }
 
     public Libro getLibro() {
         return libro;
