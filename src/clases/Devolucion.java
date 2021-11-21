@@ -5,23 +5,29 @@
  */
 package clases;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
 /**
  *
  * @author Joseto
  */
-public class Devolucion {
+public class Devolucion implements Serializable {
     
-    private Prestamo prestamo;
+    private LocalDate fechaDevolucion;
     private int multa;
     
-    public Devolucion(){}
-
-    public Prestamo getPrestamo() {
-        return prestamo;
+    public Devolucion(LocalDate fechaDevolucion){
+        this.fechaDevolucion = fechaDevolucion;
+        this.multa = 0;
     }
 
-    public void setPrestamo(Prestamo prestamo) {
-        this.prestamo = prestamo;
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 
     public int getMulta() {
@@ -34,9 +40,7 @@ public class Devolucion {
 
     @Override
     public String toString() {
-        return "Devolucion{" + "prestamo=" + prestamo + ", multa=" + multa + '}';
+        return "Devolucion{" + "multa=" + multa + ", fechaDevolucion=" + fechaDevolucion + '}';
     }
-    
-    
     
 }

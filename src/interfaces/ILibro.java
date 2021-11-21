@@ -15,6 +15,5 @@ public interface ILibro {
 
     public boolean ingresarLibro(Libro libro);
     public boolean eliminarLibro(String isbn);
-    public boolean isbnExiste(String isbn);
     
 }

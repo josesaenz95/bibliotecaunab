@@ -15,6 +15,5 @@ public interface IUsuario {
 
     public boolean ingresarUsuario(Usuario usuario);
     public boolean eliminarUsuario(String rut);
-    public boolean rutExiste(String rut);
     
 }

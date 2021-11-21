@@ -35,7 +35,7 @@ public class EstudianteService implements IEstudiante, Serializable {
     @Override
     public boolean ingresarUsuario(Usuario usuario) {
         boolean creado = false;
-        if(!rutExiste(usuario.getRut())){
+        if(!UsuarioService.rutExiste(usuario.getRut())){
             try {
                 UsuarioService.listaUsuarios.add(usuario);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
@@ -81,39 +81,5 @@ public class EstudianteService implements IEstudiante, Serializable {
         }
         return eliminado;
     }
-    
-    @Override
-    public boolean rutExiste(String rut) {
-        boolean existe = false;
-        try{
-            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream obje = new ObjectInputStream(fis);
-            List<Usuario> estudiantes = (List<Usuario>) obje.readObject();
-            obje.close();
-            
-            for(Usuario estudiante : estudiantes) {
-                if(estudiante.getRut().equals(rut)){
-                    existe = true;
-                }
-            }
-        }catch (FileNotFoundException e) {
-            System.out.println("¡ERROR 1!:¡Fichero no existe!");
-        }catch (IOException e) {
-            System.out.println("¡ERROR 2!:"+e.getMessage());
-        }catch (ClassNotFoundException e) {
-            System.out.println("¡ERROR 3!:"+e.getMessage());
-        }catch (NullPointerException e) {
-            System.out.println("¡ERROR 4!:"+e.getMessage());
-        }
-        
-        return existe;
-    }
 
-    public static void mostrar(String rut) throws FileNotFoundException, IOException, ClassNotFoundException {
-        String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios\\" + rut + ".dat");
-        ObjectInputStream obje = new ObjectInputStream(new FileInputStream(path));
-        Estudiante estudiante = (Estudiante) obje.readObject();
-        System.out.println(estudiante);
-    }
 }

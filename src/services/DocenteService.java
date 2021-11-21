@@ -9,15 +9,11 @@ import clases.Docente;
 import clases.Usuario;
 import interfaces.IDocente;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
-import java.util.List;
 
 /**
  *
@@ -34,7 +30,7 @@ public class DocenteService implements IDocente {
     @Override
     public boolean ingresarUsuario(Usuario usuario) {
         boolean creado = false;
-        if(!rutExiste(usuario.getRut())){
+        if(!UsuarioService.rutExiste(usuario.getRut())){
             try {
                 UsuarioService.listaUsuarios.add(usuario);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
@@ -79,35 +75,6 @@ public class DocenteService implements IDocente {
             System.out.println(ex.toString());
         }
         return eliminado;
-    }
-    
-    @Override
-    public boolean rutExiste(String rut) {
-        boolean existe = false;
-        try{
-            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream obje = new ObjectInputStream(fis);
-            List<Usuario> estudiantes = (List<Usuario>) obje.readObject();
-            obje.close();
-            
-            for(Usuario estudiante : estudiantes) {
-                if(estudiante.getRut().equals(rut)){
-                    existe = true;
-                }
-            }
-        }catch (FileNotFoundException e) {
-            System.out.println("¡ERROR 1!:¡Fichero no existe!");
-        }catch (IOException e) {
-            System.out.println("¡ERROR 2!:"+e.getMessage());
-        }catch (ClassNotFoundException e) {
-            System.out.println("¡ERROR 3!:"+e.getMessage());
-        }catch (NullPointerException e) {
-            System.out.println("¡ERROR 4!:"+e.getMessage());
-        }
-        
-        return existe;
-        
     }
     
 }

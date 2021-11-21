@@ -25,11 +25,13 @@ import java.util.List;
  * @author Joseto
  */
 public class LibroService implements ILibro {
-
+    
+    public static List<Libro> listaLibros = new ArrayList<Libro>();
+    
     @Override
     public boolean ingresarLibro(Libro libro) {
         boolean creado = false;
-        if(!isbnExiste(libro.getIsbn())){
+        if(!isbnExiste(libro.getIsbn()) && libro.getCantidadBiblioteca() > 0 && (libro.getCantidadDisponible() > 0 && libro.getCantidadDisponible() <= libro.getCantidadBiblioteca())){
             try {
                 LibroService.listaLibros.add(libro);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
@@ -75,8 +77,7 @@ public class LibroService implements ILibro {
         return eliminado;
     }
     
-    @Override
-    public boolean isbnExiste(String isbn) {
+    public static boolean isbnExiste(String isbn) {
         boolean existe = false;
         try{
             String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
@@ -103,6 +104,31 @@ public class LibroService implements ILibro {
         return existe;
     }
     
-    public static List<Libro> listaLibros = new ArrayList<Libro>();
+    public static Libro buscarLibro(String isbn){
+        Libro encontrado = null;
+        try{
+            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream obje = new ObjectInputStream(fis);
+            List<Libro> libros = (List<Libro>) obje.readObject();
+            obje.close();
+            
+            for(Libro libro : libros) {
+                if(libro.getIsbn().equals(isbn)){
+                    encontrado = libro;
+                }
+            }
+        }catch (FileNotFoundException e) {
+            System.out.println("¡ERROR 1!:¡Fichero no existe!");
+        }catch (IOException e) {
+            System.out.println("¡ERROR 2!:"+e.getMessage());
+        }catch (ClassNotFoundException e) {
+            System.out.println("¡ERROR 3!:"+e.getMessage());
+        }catch (NullPointerException e) {
+            System.out.println("¡ERROR 4!:"+e.getMessage());
+        }
+        
+        return encontrado;
+    }
     
 }

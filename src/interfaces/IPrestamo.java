@@ -5,13 +5,14 @@
  */
 package interfaces;
 
+import clases.Prestamo;
+
 /**
  *
  * @author Joseto
  */
 public interface IPrestamo {
     
-    public boolean ingresarPrestamo();
-    public void generarTarjeta();
+    public boolean ingresarPrestamo(String isbn, String rut, int cantidadDias);
     
 }

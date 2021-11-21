@@ -5,13 +5,15 @@
  */
 package interfaces;
 
+import clases.Prestamo;
+
 /**
  *
  * @author Joseto
  */
 public interface IDevolucion {
     
-    public boolean ingresarDevolucion();
-    public int calcularMulta();
+    public boolean ingresarDevolucion(String isbn, String rut);
+    public int calcularMulta(Prestamo prestamo);
     
 }
