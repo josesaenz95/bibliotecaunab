@@ -5,7 +5,13 @@
  */
 package clases;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
@@ -34,7 +40,9 @@ public class Libro implements Serializable {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        if(!isbnExiste(isbn)){
+            this.isbn = isbn;
+        }
     }
 
     public String getTitulo() {
@@ -58,7 +66,9 @@ public class Libro implements Serializable {
     }
 
     public void setCantidadBiblioteca(int cantidadBiblioteca) {
-        this.cantidadBiblioteca = cantidadBiblioteca;
+        if(validarCantidadBiblioteca(cantidadBiblioteca)){        
+            this.cantidadBiblioteca = cantidadBiblioteca;
+        }
     }
 
     public int getCantidadDisponible() {
@@ -66,7 +76,9 @@ public class Libro implements Serializable {
     }
 
     public void setCantidadDisponible(int cantidadDisponible) {
-        this.cantidadDisponible = cantidadDisponible;
+        if(validarCantidadDisponbile(this.cantidadBiblioteca, cantidadDisponible)){
+            this.cantidadDisponible = cantidadDisponible;
+        }
     }
 
     public String getImagen() {
@@ -82,6 +94,39 @@ public class Libro implements Serializable {
         return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", cantidadBiblioteca=" + cantidadBiblioteca + ", cantidadDisponible=" + cantidadDisponible + ", imagen=" + imagen + '}';
     }
     
+    public static boolean isbnExiste(String isbn) {
+        boolean existe = false;
+        try{
+            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream obje = new ObjectInputStream(fis);
+            List<Libro> libros = (List<Libro>) obje.readObject();
+            obje.close();
+            
+            for(Libro libro : libros) {
+                if(libro.getIsbn().equals(isbn)){
+                    existe = true;
+                }
+            }
+        }catch (FileNotFoundException e) {
+            System.out.println("¡ERROR 1!:¡Fichero no existe!");
+        }catch (IOException e) {
+            System.out.println("¡ERROR 2!:"+e.getMessage());
+        }catch (ClassNotFoundException e) {
+            System.out.println("¡ERROR 3!:"+e.getMessage());
+        }catch (NullPointerException e) {
+            System.out.println("¡ERROR 4!:"+e.getMessage());
+        }
+        
+        return existe;
+    }
     
+    public static boolean validarCantidadBiblioteca(int cantidadBiblioteca){
+        return cantidadBiblioteca > 0;
+    }
+    
+    public static boolean validarCantidadDisponbile(int cantidadBiblioteca, int cantidadDisponible){
+        return cantidadDisponible <= cantidadBiblioteca;
+    }
     
 }

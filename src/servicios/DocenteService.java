@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package servicios;
 
 import clases.Docente;
 import clases.Usuario;
-import interfaces.IDocente;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,18 +18,12 @@ import java.nio.file.Paths;
  *
  * @author Joseto
  */
-public class DocenteService implements IDocente {
-
-    @Override
-    public void agregarProfesionGrado(Docente docente, String grado, String profesion) {
-        docente.setGrado(grado);
-        docente.setProfesion(profesion);
-    }
+public class DocenteService extends UsuarioService {
 
     @Override
     public boolean ingresarUsuario(Usuario usuario) {
         boolean creado = false;
-        if(!UsuarioService.rutExiste(usuario.getRut())){
+        if(!Usuario.rutExiste(usuario.getRut())){
             try {
                 UsuarioService.listaUsuarios.add(usuario);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");

@@ -22,13 +22,12 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-import services.DevolucionService;
-import services.DocenteService;
-import services.EstudianteService;
-import services.LibroService;
-import services.PrestamoService;
-import services.UsuarioService;
-import services.UtilService;
+import servicios.DevolucionService;
+import servicios.DocenteService;
+import servicios.EstudianteService;
+import servicios.LibroService;
+import servicios.PrestamoService;
+import servicios.UsuarioService;
 
 /**
  *
@@ -161,7 +160,7 @@ public class Biblioteca {
                rut = "13334356-3",
                carrera = "Informática";
         char genero = 'M';
-        if(UtilService.validarRut(rut)){
+        if(Usuario.validarRut(rut)){
             EstudianteService es = new EstudianteService();
             Estudiante estudiante = new Estudiante(nombre, rut, genero, carrera);
             ingresado = es.ingresarUsuario(estudiante);
@@ -185,7 +184,7 @@ public class Biblioteca {
                profesion = "Informática",
                grado = "Magister";
         char genero = 'M';
-        if(UtilService.validarRut(rut)){
+        if(Usuario.validarRut(rut)){
             DocenteService ds = new DocenteService();
             Docente docente = new Docente(nombre, rut, genero, profesion, grado);
             ingresado = ds.ingresarUsuario(docente);

@@ -7,6 +7,7 @@ package clases;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -41,6 +42,15 @@ public class Devolucion implements Serializable {
     @Override
     public String toString() {
         return "Devolucion{" + "multa=" + multa + ", fechaDevolucion=" + fechaDevolucion + '}';
+    }
+    
+    public int calcularMulta(Prestamo prestamo) {
+        int multa = 0;
+        if(LocalDate.now().isAfter(prestamo.getDevolucion().getFechaDevolucion())){
+            LocalDate fechaActual = LocalDate.now();
+            multa = ((int) ChronoUnit.DAYS.between(fechaActual, prestamo.getDevolucion().getFechaDevolucion())) * 1000;
+        }
+        return multa;
     }
     
 }

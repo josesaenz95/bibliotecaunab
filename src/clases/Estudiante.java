@@ -32,7 +32,10 @@ public class Estudiante extends Usuario implements Serializable{
     public String toString() {
         return "Estudiante{" + super.toString() + "carrera=" + carrera + '}';
     }
-    
-    
+
+    @Override
+    public String tipoUsuario() {
+        return "Estudiante";
+    }
     
 }

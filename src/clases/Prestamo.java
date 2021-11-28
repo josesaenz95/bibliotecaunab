@@ -15,7 +15,6 @@ import java.util.Date;
  */
 public class Prestamo implements Serializable {
     
-    private int id;
     private Libro libro;
     private Usuario usuario;
     private int cantidadDias;
@@ -84,6 +83,20 @@ public class Prestamo implements Serializable {
         return "Prestamo{" + "libro=" + libro.toString() + ",\n usuario=" + usuario.toString() + ",\n cantidadDias=" + cantidadDias + ", fechaPrestamo=" + fechaPrestamo + ",\n devolucion=" + devolucion.toString() + '}';
     }
 
-    
+    public static void generarTarjeta(Prestamo prestamo) {
+        String tipoUsuario = prestamo.getUsuario() instanceof Estudiante ? "Estudiante" : "Docente";
+        
+        System.out.println("    TARJETA DE PRÉSTAMO DE LIBRO");
+        System.out.println("          ISBN          : " + prestamo.getLibro().getIsbn());
+        System.out.println("          TIPO USUARIO  : " + tipoUsuario);
+        System.out.println("          CANTIDAD DÍAS : " + prestamo.getCantidadDias());
+        
+        System.out.println("FECHA                  CLIENTE                    LIBRO                          FECHA DEVOLUCION");
+        System.out.println(".......................................................................................");
+        System.out.println(prestamo.getFechaPrestamo() + "          " + prestamo.getUsuario().getNombre() + "         " + prestamo.getLibro().getTitulo() + "              " + prestamo.getDevolucion().getFechaDevolucion());
+        System.out.println("......\n");
+        System.out.println("                                                     _______________");
+        System.out.println("                                                      FIRMA CLIENTE");
+    }
     
 }

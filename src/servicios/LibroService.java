@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package servicios;
 
-import interfaces.ILibro;
 import clases.Libro;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,14 +22,13 @@ import java.util.List;
  *
  * @author Joseto
  */
-public class LibroService implements ILibro {
+public class LibroService {
     
     public static List<Libro> listaLibros = new ArrayList<Libro>();
     
-    @Override
     public boolean ingresarLibro(Libro libro) {
         boolean creado = false;
-        if(!isbnExiste(libro.getIsbn()) && libro.getCantidadBiblioteca() > 0 && (libro.getCantidadDisponible() > 0 && libro.getCantidadDisponible() <= libro.getCantidadBiblioteca())){
+        if(!Libro.isbnExiste(libro.getIsbn()) && libro.getCantidadBiblioteca() > 0 && (libro.getCantidadDisponible() > 0 && libro.getCantidadDisponible() <= libro.getCantidadBiblioteca())){
             try {
                 LibroService.listaLibros.add(libro);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
@@ -52,7 +49,6 @@ public class LibroService implements ILibro {
         return creado;
     }
 
-    @Override
     public boolean eliminarLibro(String isbn) {
         boolean eliminado = false;
         for(int i=0; i < LibroService.listaLibros.size(); ++i){
@@ -75,33 +71,6 @@ public class LibroService implements ILibro {
             System.out.println(ex.toString());
         }
         return eliminado;
-    }
-    
-    public static boolean isbnExiste(String isbn) {
-        boolean existe = false;
-        try{
-            String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\libros.dat");
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream obje = new ObjectInputStream(fis);
-            List<Libro> libros = (List<Libro>) obje.readObject();
-            obje.close();
-            
-            for(Libro libro : libros) {
-                if(libro.getIsbn().equals(isbn)){
-                    existe = true;
-                }
-            }
-        }catch (FileNotFoundException e) {
-            System.out.println("¡ERROR 1!:¡Fichero no existe!");
-        }catch (IOException e) {
-            System.out.println("¡ERROR 2!:"+e.getMessage());
-        }catch (ClassNotFoundException e) {
-            System.out.println("¡ERROR 3!:"+e.getMessage());
-        }catch (NullPointerException e) {
-            System.out.println("¡ERROR 4!:"+e.getMessage());
-        }
-        
-        return existe;
     }
     
     public static Libro buscarLibro(String isbn){

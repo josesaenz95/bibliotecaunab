@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package servicios;
 
 import clases.Estudiante;
 import clases.Usuario;
-import interfaces.IEstudiante;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,17 +23,12 @@ import java.util.List;
  *
  * @author Joseto
  */
-public class EstudianteService implements IEstudiante, Serializable {
-
-    @Override
-    public void agregarCarrera(Estudiante estudiante, String carrera) {
-        estudiante.setCarrera(carrera);
-    }
+public class EstudianteService extends UsuarioService implements Serializable {
 
     @Override
     public boolean ingresarUsuario(Usuario usuario) {
         boolean creado = false;
-        if(!UsuarioService.rutExiste(usuario.getRut())){
+        if(!Usuario.rutExiste(usuario.getRut())){
             try {
                 UsuarioService.listaUsuarios.add(usuario);
                 String path = Paths.get("").toAbsolutePath().toString().concat("\\src\\database\\usuarios.dat");
